@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Fun With Sensors</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/blog-post.css" rel="stylesheet">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+    <!-- <a class="navbar-brand" href="#">Nishita Sinha - Physical Sciences 70</a>-->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="../index.html">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../AboutMe/index.html">About Me</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../FinalProject/index.html">Final Project</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav> 
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4">Introduction to Internet of Things!</h1>
+
+        <!-- Author 
+        <p class="lead">
+          by
+          <a href="#">Start Bootstrap</a>
+        </p>
+
+        <hr> -->
+
+        <!-- Date/Time -->
+        <p>Week 8, Internet of Things</p>
+
+        <hr>
+
+        
+        <p class="lead">This week we talked about the internet of things in class. Specifically, we talked about how we can get one arduino to send a signal to another arduino, so we can have two arduinos responding to each other. My goal this week was to 1) further learn how to use output and input devices I hadn't tried yet (specifically the RGB LED and the potentiometer), and also setup a system that used the 
+        internet of things to communicate between two arduinos.</p>
+
+        <h3> Communication between two arduinos </h3>
+
+        
+        <p> The first thing I needed to do was understand, how can one arduino send a signal to another arduino over a wired connection? It's actually as simple as you might think: the "transmitter" arduino has a pin initialized as an output, and this pin can be wired to a pin on the other arduino, the "Receiver",initialized as an input pin. So, when voltage is outputted from the first arduino, the second arduino can read this as an input, and do something in response. </p>.
+
+        <img src="./circuit.jpg" class="img-responsive margin" style="width:20%" alt="Internet of things example">
+
+        <p> Read more about this serial communication and the computer science behind it <a href="https://learn.sparkfun.com/tutorials/serial-communication/all">here</a> </p>.
+
+        <h3>RGB LED</h3>
+
+        <p> I knew that I also wanted this week to help me learn more about RGB LEDs, which I've never used before. These LEDs essentially have one red, green, and blue LED inside them, so by tuning the values of each of these LEDS (which run between 0 and 255 bits each), we can get a whole spectrum of colors! Purple, White, Turquoise - it can do it all! There is also a common ground pin (the longest leg of the RGB LED) to complete the circuit. </p>
+
+        <img src="./RGB.PNG" class="img-responsive margin" style="width:20%" alt="RGB LED">
+
+        <p> So, to make this circuit, I used three resistors for each color LED within the RGB LED, and wires connecting these resistors and RGB Legs to analog output pins, and a wire to connect the ground Leg to ground </p>
+
+        <img src="./RGBcircuit.PNG" class="img-responsive margin" style="width:20%" alt="Circuit">
+
+
+        <p> For the code, most programmers will define a function (named something like setColor(integer, integer, integer) that takes a value between 0 and 255 for the red, green, and blue LEDs and pushes each of these integers to tune the brightness of each individual color. This just makes it easier so that you don't have to set the value of each color LED independently each time. This function looks like: </p>
+
+        <pre><code class="language-arduino">
+         void setColor(int redValue, int greenValue, int blueValue) {
+            analogWrite(bluePin, blueValue);
+            analogWrite(redPin, redValue);
+            analogWrite(greenPin, greenValue);
+        }
+      </code></pre>
+
+        <p> Overall, my initial go with RGB LEDS looked like: </p>
+
+        <img src="./RGB.gif" class="img-responsive margin" style="width:20%" alt="RGB LED GIF">
+
+
+       <h3> An Internet of Things System </h3>
+
+
+        <p> This RGB LED is cool, but so far doesn't use the Internet of things. I decided it might be cool if the trasmitter arduino (I used a Mattair Samd 11 board) lit up the RGB LED to various colors, and through a wired connection, made the Receiver arduino (I used an Adafruit ItsyBitsy) move a servo motor by some set amount everytime the RGB LED lit up </p>
+
+        <p> Okay, so for Internet of Things, we need the code and circuit for each board separately, and something to connect these. I tackled each board individually first. </p>
+
+        <p> We already have our RGB LED circuit and code, so we need to program the Adafruit Itsy Bitsy arduino. To do this, I attached a servo motor in the same way as last week (one lead to ground, one to high voltage, and one to some output pin). Using the same servo motor library and functions as last week's code, I programmed this servo motor to move in increments of 30 degrees when the itsy bitsy arduino received some input voltage at a digital read pin </p>
+
+        <p> To connect the two arduinos, I attached a wire from the SAMD board's output pin to the itsybitsy's input pin, defined in the code. I also attached the Vbat itsybitsy pin to the common 5V positive voltage line from the SAMD board, to power the arduino. I then added a line in the setColor function of the SAMD board to send an output voltage to the pin that is wired to the other arduino. </p>
+
+        <p> This was a lot of words, so let's take a look at what this circuit actually looks like </p>
+
+        <img src="./circuit.PNG" class="img-responsive margin" style="width:20%" alt="Circuit">
+
+        <p> You can see the two individual arduino circuits, connected by this green wire. </p>
+
+
+        <p> And overall, the Internet of Things connection worked, and we had a system that moved a servo motor by steps of 30 degrees whenever an RGB LED changed colors </p>
+
+
+        <img src="./iot.giff" class="img-responsive margin" style="width:20%" alt="Gif">
+
+
+
+        <h3> One more project - a Potentiometer tuned Servo Motor </h3>
+
+        <p> If you recall, in the beginning of this week, I mentioned I wanted to also learn how to use a potentiometer. A potentiometer worked by having three pins, one connected to ground, one to 3V, and one to an anaolog input pin. Essentially, as you turn the potentiometer, it lets different amounts of voltage through, and converts this voltage to a value between 0 and 1023 (recall that 2 to the tenth power is 1024 so these many values makes some computer-logical sense). This value is then sent to the analog input pin. </p>
+
+        <p> I wanted to use this analog input to turn the servo motor, that I already had hooked up in a circuit, by some amount, so that by turning the potentiometer fully in one direction and back the other way, I could do the same to the servo motor. </p>
+
+        <p> To do this, I learned about a new function called the map function. This maps values between one range to values between another range. So, I could map the potentiometer values between 0 and 1023 to the servo motors values between 0 and 180 degrees. This function is map(val, 0, 1023, 0, 180), and I sent this value to the servo motor function to move the servo motor to this position. </p>
+
+        <p> Altogether, this looked like: </p>
+
+        
+        <img src="./pot.PNG" class="img-responsive margin" style="width:20%" alt="Potentiometer circuit">
+        <img src="./knob.gif" class="img-responsive margin" style="width:20%" alt="Knob Gif">
+
+
+        <p> As you can see, the potentiometer works like a "knob" moving the servo motor smoothly as we turn it. </p>
+
+
+        <p> That's it for this week! Next week we will continue our exploration of the Internet of Things with bluetooth and radio connections! </p>
+
+        <hr>
+
+       
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Categories</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">Web Design</a>
+                  </li>
+                  <li>
+                    <a href="#">HTML</a>
+                  </li>
+                  <li>
+                    <a href="#">Freebies</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">JavaScript</a>
+                  </li>
+                  <li>
+                    <a href="#">CSS</a>
+                  </li>
+                  <li>
+                    <a href="#">Tutorials</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Side Widget</h5>
+          <div class="card-body">
+            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
