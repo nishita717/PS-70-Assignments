@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>The First Part of my Final Project!!</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/blog-post.css" rel="stylesheet">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+    <!-- <a class="navbar-brand" href="#">Nishita Sinha - Physical Sciences 70</a>-->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="../index.html">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../AboutMe/index.html">About Me</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../FinalProject/index.html">Final Project</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav> 
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4">Final Project: Part 1</h1>
+
+        <!-- Author 
+        <p class="lead">
+          by
+          <a href="#">Start Bootstrap</a>
+        </p>
+
+        <hr> -->
+
+        <!-- Date/Time -->
+        <p>Week 11, Working on my Final Project</p>
+
+        <hr>
+
+        <p> This week I focused on laying some of the groundwork for my final project. My idea is to use the Huzzah board to setup up an intrahospital communication system. A lot of hospitals currently are struggling to keep track of patients, PPE, and what's needed given how inundated they are with COVID-19 cases. My project aims to create an easy, hands free system for doctors and nurses to communicate their needs and their patients' conditions and needs to a centralized hospital system. </p>
+       
+        <h3> PPE Sensor and Indicator </h3>
+
+        <p> The first intrahospital connection device I wanted to set up was a sensor that doctors and nurses could use to inform the hospital when they needed more Personal Protective Equipment (PPE). Essentially, I wanted it to be easy for nurses and doctors to communicate to their floor and some central hospital database when they needed PPE </p>
+
+
+        <p> Given COVID-19 transmission in hospitals, I wanted this to be hands free. One way to do this, I thought, is to use capacitive sensors. My idea became for each PPE sensor to have one capacitive sensor that indicates a floor/unit needs PPE when a doctor or nurse waves their hand in front of it, and a second that indicates a floor/unit does not need PPE. This capacitive sensor would 1) light up or turn off an LED indicating whether the floor needs PPE, 2) communicate this information to a larger database so the hospital can see this information at a centralized location, and 3) be completely hands free. </p>
+
+
+        <p> If each floor or unit has one of these sensors, people walking around could see the LED and know whether they need PPE. Also, the hospital could use the centralized database to see if specific floors/units need PPE </p>
+
+
+        <img src="./huzzah.png" class="img-responsive margin" style="width:20%" alt="Huzzah">
+
+
+        <h3> Step 1: Learning how to communicate with the Huzzah </h3>
+
+        <p> Materials Needed: a Huzzah board, wires, a resistor, and an LED. Downloads needed: Adafruit ESP32 Feather board download, Firebase account </p>
+
+        <p> The first way I learned how to communicate with the Huzzah is through my house's local wifi. This involved a Simple Wifi tutorial that allowed us to use our laptop's IPN's to control an LED. The way this works is by following the simple wifi tutorial and essentially this uses your wifi information to send information to the Huzzah board when you click input buttons on your computer screen. Here's a demo of how this worked:  </p>
+
+        <img src="./LED.gif" class="img-responsive margin" style="width:20%" alt="LED video">
+
+        <p> But, what if we want to control this Huzzah board without being in our wifi network? What if we wanted to control this Huzzah from somewhere else anywhere around the world? The answer is Databases! Firebase is one site that can help with this. Essentially our Arduino IDE communicates with Firebase to set the state of something on our Huzzah (for instance, an LED). We can thus write the state of the LED directly into Firebase, and don't need to be within our wifi network. </p>
+
+
+        <h3> Step 1: Powering an LED on a Huzzah board using buttons. </h3>
+
+        <p> The first step was figuring out how to use some kind of input to change the state of the LED in the firebase database without manually changing it in the database console or using the webpage. Last week, I used a firebase webpage to power an LED, but my first step this week was figuring out how to do this with buttons. </p>
+
+        <p> I used buttons in a pull down resistor scenario. I.E. the buttons were connected to the 3.3V pin of the Huzzah and to other input pins, so when they were clicked, the input pins would read high voltage. </p>
+
+        <p> I then wrote my code to essentially write the state of the LED to be ON in the firebase console when one button was clicked, and OFF when the other button was clicked. This code looked like: </p>
+
+        <!--CODE-->
+
+        <p> And all together, these buttons were able to write to the database and turn on and off an LED. </p>
+        
+        <img src="./servo.gif" class="img-responsive margin" style="width:20%" alt="Servo motor video">
+
+        <h3> Step 2: Setting up a Capacitive Sensor with the Huzzah </h3>
+       
+        <p> The next thing I wanted to do was set up a Capacitive Sensor with the Huzzah. I realized that I couldn't use the capactive sensor library for the Huzzah, and instead had to figure out another way to do this. I learned that the Huzzah has some General Purpose Input/Output (GPIO) pins setup to be touch sensors, and looked up which GPIO corresponded to which touch sensor.</p>
+
+        <p> I then read about the touch functions on the huzzah and ended up realizing that these touch pins work directly as capacitive sensors with touch functions built in. You can read more about this here: </p>
+
+        <!-- INSERT LINK -->
+
+        <p> The problem is, that these touch sensors are not as sensitive as capacitive sensors can be. I tried playing with the resistance values to change the sensitivity, but readings were just not sensitive enough to get this to be as hands free as I hoped. </p>
+
+
+        <p> So instead, I set up a capactive sensor using an Arduino Uno, resistor, and a spoon using the capacitive sensor library and circuit describes in output devices (Week 7). I then measured values of the capacitve sensor, and got a threshold value for what it crosses when I bring my hand close to the spoon. I was able to then use this threshold value to turn on and off an LED! </p>
+
+        <p> This is what the capacitive sensor circuit looked like: </p>
+
+        <!--PICTURE -->
+
+        <p> But at this point I still didn't know how to use capacitive touch to write to the firebase database. For this, I really needed the Huzzah. So, instead of doing things just on the Uno, I set up a wired connection between the Arduino Uno (transmitter) and the Huzzah by connecting the grounds, and the 5V of the Arduino Uno to the 3V of the Huzzah. I also set up one more output pin on the Arduino and connected this to an input pin on the Huzzah. </p>
+
+        <p> This wired connection looked like: </p>
+
+        <!-- Circuit Picture -->
+
+        <p> Next, I needed to set up the code. To do this, I followed this logic: Once the capactive sensor (spoon) on the arduino uno reads a value greater than the threshold (meaning your hand is close to it), it sends an output signal on the wired connection pin on the uno to the input pin on the Huzzah. The Huzzah, when it reads an input voltage on this pin, writes "ON" for the LED state in the database, and this turns on the LED connected to the Huzzah. </p>
+
+        <p> And this worked! Check it out: </p>
+
+         <img src="./spoon.gif" class="img-responsive margin" style="width:20%" alt="Spoons">
+
+        <h3> Step 3: Setting up two Capacitive Sensors and Making this More Streamlines </h3>
+
+        <p> After getting one spoon set up to turn on the LED, it wasn't too hard to create a second capacitive sensor on my arduino uno, create a second wired connection to the Huzzah, and get a second spoon set up to turn off the LED, indicating the floor/unit does not need PPE. </p>
+
+        <img src="./spoons.gif" class="img-responsive margin" style="width:20%" alt="Spoons">
+
+        <p> I wanted to make this look slightly more ~ attractive ~, so I constructed a cardboard holder for my spoons and circuitry with the LED. This looks like: </p>
+
+        <!-- CARDBOARD PICTURE -->
+
+        <p> And here's a video of this project in it's current state! </p>
+
+      <img src="./spoons2.gif" class="img-responsive margin" style="width:20%" alt="Spoons
+        <!-- VIDEO -->
+
+
+
+        <hr>
+
+       
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Categories</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">Web Design</a>
+                  </li>
+                  <li>
+                    <a href="#">HTML</a>
+                  </li>
+                  <li>
+                    <a href="#">Freebies</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">JavaScript</a>
+                  </li>
+                  <li>
+                    <a href="#">CSS</a>
+                  </li>
+                  <li>
+                    <a href="#">Tutorials</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Side Widget</h5>
+          <div class="card-body">
+            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
