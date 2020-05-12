@@ -1,34 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>PHYSCI 70: Intro to Digital Fabrication </title>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link href="../style.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Final Project - Personal Patient Monitors</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/blog-post.css" rel="stylesheet">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+  <link href="css/blog-post.css" rel="stylesheet">
+
 </head>
+
 <body>
 
-<div class="container-fluid">
-  <h3>Final Project Idea</h3> <br> 
-  <div class="row">
-    
-      <p> My first final project idea was to develop a technology that can automatically sort items into trash, recycling and compost. This would use some kind of sensor to visually see and feel the material to determine what category it belongs to. </p>
-      <p> My second idea is to develop something that can automatically water plants at when it senses different plants need more water. </p>
+  <!-- Navigation -->
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+    <!-- <a class="navbar-brand" href="#">Nishita Sinha - Physical Sciences 70</a>-->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="../index.html">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../AboutMe/index.html">About Me</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../FinalProject/index.html">Final Project</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav> 
+  <div class="container">
 
-      <p> With the transition to online classes, I am still interested in making an automatic plant waterer. I picked up some circuit component pumps from the lab so hopefully can incorporate those and maybe even test them on plants in my home! </p>
-      
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4">Personal Patient Monitors</h1>
+
+        <!-- Author 
+        <p class="lead">
+          by
+          <a href="#">Start Bootstrap</a>
+        </p>
+
+        <hr> -->
+
+        <!-- Date/Time -->
+        <p>My Final Project</p>
+
+        <hr>
+
+        <!-- Video of Final Project-->
+        <p> For my final project, I made a device to help COVID-19 patients autonomously report changes in how they are feeling about five common comorbidities of COVID-19. The goal of this device, named Personal Patient Monitors, is to 1) help remove some of the strain from doctors and nurses in busy hospitals and ERs, and 2) collect more frequent, real-time data, and save this data to a centralized datapage and webpage for additional research. </p>
 
 
-   
+        <p> I'll just describe the final project in this page, but for detailed documentation on my hardware and software design process and implementation, check out this <a href = "./process.html">Process</a> </p>
+
+        <p> To start, turn your volume on and check out this video I put together showing the total final product of Personal Patient Monitors and all its features: </p>
+
+       <iframe width="560" height="315" src="https://www.youtube.com/embed/qN2UiYk3xC0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+       
+        <hr>
+
+        <p> Now, let's talk a bit more about this final project in words: </p>
+
+
+        <h3> The Motivation </h3>
+        <!-- Post Content -->
+       
+       <p> The reason that I decided to work on these kinds of devices for my final project is because I wanted to somehow help with the COVID-19 Epidemic. I knew that many hospitals are currently very overwhelmed by patients, especially in high risk areas such as New York. I live in Northern NJ, relatively close to some of these areas, and I wanted to a create a device that can take some of the strain off of the nurses and doctors on the front lines. </p>
+
+
+       <p> I thought that one way to free up time for doctors and nurses is by having a device that patients can use themselves to input how they are feeling about various systems of their body that may be affected by coronavirus. Having this data be inputted to a central database could perhaps help doctors and nurses more easily and more frequently collect data from patients. </p>
+
+       <p> Also, hospitals that are so inundated in cases maybe don't have the time to study data extensively, so having this data in a real-time, detailed database and on a website can perhaps help with outsourcing data analysis as well. This may help us better understand the onset of comorbidities of coronavirus, and better treat these and account for these in the future. </p>
+
+       <h3> The Comorbidities </h3>
+
+       <p> I had to next decide what my project would actually allow patients to input data on. I knew that I wanted to collect data on common comorbidities of COVID-19, or things that tend to go wrong during its onset. Eventually, after doing some research, based on how common they are and how frequently they can change, I settled on five comorbidities to test: Difficulty Breathing, Stomach Pain, Chest Pain, Confusion, and Coughing. </p>
+        
+        <h3> The User Interface </h3>
+
+        <p> I wanted this device to be easy to use by users, and buildable using simple components I had in my arduino kit. My vision for this device would be that a user could use buttons to navigate through different comorbidities. After they picked a comorbidity, I wanted them to be able to turn some sort of dial to indicate how well they are doing with this comorbidity, on a scale from very bad to very good. Finally, I wanted there to be an "Enter" or "Commit" button that would update some database with this value when pressed.</p>
+
+        <p> I realized that using buttons and an LED strip would make most sense for navigating through comorbidities, and perhaps using a potentiometer and/or servomotor to indicate how they are doing. I explain the specifics of how I designed and built this circuit in the Process page. </p>
+
+        <p> Here is a full picture of the user interface: </p>
+        <img src="./full.PNG" class="img-responsive margin" style="width:50%" alt="user interface full">
+
+
+        <h3>The Database and Webpage</h3>
+
+        <p>Finally, I wanted this information to display somewhere centralized for the hospital and perhaps potential public data analysts to access it. I decided that using a firebase database to store the information and then displaying this information on a table on a webpage is maybe the simplest way to do this. </p>
+
+        <p> Check out the webpage <a href = "./firebase.html"> here </a>
+
+
+        <h3> Implementation and Future Directions </h3>
+
+        <p> </p>
+
+
+
+        <p> Please check out my fully documented process page <a href = "./process.html"> here </a> </p>
+
+        <p> Thanks so much for checking out my page! Please feel free to contact me with questions, comments, and suggestions! :) </p>
+        <hr>
+
+       
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Categories</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">Web Design</a>
+                  </li>
+                  <li>
+                    <a href="#">HTML</a>
+                  </li>
+                  <li>
+                    <a href="#">Freebies</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">JavaScript</a>
+                  </li>
+                  <li>
+                    <a href="#">CSS</a>
+                  </li>
+                  <li>
+                    <a href="#">Tutorials</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Side Widget</h5>
+          <div class="card-body">
+            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
   </div>
+  <!-- /.container -->
 
- 
-  
-  
-</div>
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

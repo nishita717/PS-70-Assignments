@@ -1,0 +1,145 @@
+<html>
+<body>
+<style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+}
+
+table {
+    border-spacing: 5px;
+}
+
+</style>
+
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<!--<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>-->
+
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+	     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+
+<script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+,<!--<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>-->
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCFPRjNfXhYPcklD8m-Smf9_uJs3Vq2dpA",
+    authDomain: "finalproject-dc86d.firebaseapp.com",
+    databaseURL: "https://finalproject-dc86d.firebaseio.com",
+    projectId: "finalproject-dc86d",
+    storageBucket: "finalproject-dc86d.appspot.com",
+    messagingSenderId: "191739771546",
+    appId: "1:191739771546:web:95e0c0e29822c6fbe57d23",
+    measurementId: "G-YCF0VS0RY5"
+  };
+  firebase.initializeApp(config);
+  //firebase.analytics();
+
+
+</script>
+
+<head>
+    <title>Patient 1 Information:</title>
+    </head>
+<table style="width:100%" id="ex-table">
+  <tr id="tr">
+  	<th>Patient:</th>
+    <th>Breathing:</th>
+    <th>Stomach:</th> 
+    <th>Chest:</th>
+    <th>Confusion:</th>
+    <th>Cough:</th>
+  </tr>
+  <tr> 
+  </tr>
+  <tr>
+    <tr>
+  </tr>
+</table>
+
+<script>
+//firebase script should be here
+	
+
+	var ref = firebase.database().ref();
+	
+	var content = '';
+	ref.once("value", function(snapshot) {
+		
+		var val = snapshot.val();
+	   console.log(snapshot.val());
+	   console.log(val.patient);
+
+	   content +='<tr>';
+	   content += '<td>' + val.patient.number + '</td>';
+       content += '<td>' + val.patient.First + '</td>';
+       content += '<td>' + val.patient.Second + '</td>';
+       content += '<td>' + val.patient.Third + '</td>';
+       content += '<td>' + val.patient.Fourth + '</td>';
+       content += '<td>' + val.patient.Fifth + '</td>';
+       content += '</tr>';
+
+
+       /*snapshot.forEach(function(patient){
+                var val2 = patient.val();
+                content +='<tr>';
+	  		 	content += '<td>' + val.patient + '</td>';
+                content += '<td>' + val2.First + '</td>';
+                content += '<td>' + val2.Second + '</td>';
+                content += '<td>' + val2.Third + '</td>';
+                content += '<td>' + val2.Fourth + '</td>';
+                content += '<td>' + val2.Fifth + '</td>';
+                content += '</tr>';
+            }*/
+
+       $('#ex-table').append(content);
+	}, 
+
+
+
+	function (error) {
+	   console.log("Error: " + error.code);
+	});
+
+	
+	console.log("appended");
+
+ /*var database = firebase.database();
+    database.ref().once('value', function(snapshot){
+        var val = data.val();
+                content +='<tr>';
+                content += '<td>' + val.First + '</td>';
+                content += '<td>' + val.Second + '</td>';
+                content += '<td>' + val.Third + '</td>';
+                content += '<td>' + val.Fourth + '</td>';
+                content += '<td>' + val.Fifth + '</td>';
+                content += '</tr>';
+
+
+      /*  if(snapshot.exists()){
+            var content = '';
+            snapshot.forEach(function(data){
+                var val = data.val();
+                content +='<tr>';
+                content += '<td>' + val.First + '</td>';
+                content += '<td>' + val.Second + '</td>';
+                content += '<td>' + val.Third + '</td>';
+                content += '<td>' + val.Fourth + '</td>';
+                content += '<td>' + val.Fifth + '</td>';
+                content += '</tr>';
+            });
+            $('#ex-table').append(content);
+    });*/
+
+</script>
+
+</body>
+</html>
