@@ -85,19 +85,14 @@
         <p> Given COVID-19 transmission in hospitals, I wanted this to be hands free. One way to do this, I thought, is to use capacitive sensors. My idea became for each PPE sensor to have one capacitive sensor that indicates a floor/unit needs PPE when a doctor or nurse waves their hand in front of it, and a second that indicates a floor/unit does not need PPE. This capacitive sensor would 1) light up or turn off an LED indicating whether the floor needs PPE, 2) communicate this information to a larger database so the hospital can see this information at a centralized location, and 3) be completely hands free. </p>
 
 
-        <p> If each floor or unit has one of these sensors, people walking around could see the LED and know whether they need PPE. Also, the hospital could use the centralized database to see if specific floors/units need PPE </p>
-
-
-        <img src="./huzzah.png" class="img-responsive margin" style="width:50%" alt="Huzzah">
+        <p> If each floor or unit has one of these sensors, people walking around could see the LED and know whether they need PPE. Also, the hospital could use the centralized database to see if specific floors/units need PPE. </p>
 
 
         <h3> Step 1: Learning how to communicate with the Huzzah </h3>
 
         <p> Materials Needed: a Huzzah board, wires, a resistor, and an LED. Downloads needed: Adafruit ESP32 Feather board download, Firebase account </p>
 
-        <p> The first way I learned how to communicate with the Huzzah is through my house's local wifi. This involved a Simple Wifi tutorial that allowed us to use our laptop's IPN's to control an LED. The way this works is by following the simple wifi tutorial and essentially this uses your wifi information to send information to the Huzzah board when you click input buttons on your computer screen. Here's a demo of how this worked:  </p>
-
-        <img src="./LED.gif" class="img-responsive margin" style="width:50%" alt="LED video">
+        <p> The first way I learned how to communicate with the Huzzah is through my house's local wifi. This involved a Simple Wifi tutorial that allowed us to use our laptop's IPN's to control an LED. The way this works is by following the simple wifi tutorial and essentially this uses your wifi information to send information to the Huzzah board when you click input buttons on your computer screen.  </p>
 
         <p> But, what if we want to control this Huzzah board without being in our wifi network? What if we wanted to control this Huzzah from somewhere else anywhere around the world? The answer is Databases! Firebase is one site that can help with this. Essentially our Arduino IDE communicates with Firebase to set the state of something on our Huzzah (for instance, an LED). We can thus write the state of the LED directly into Firebase, and don't need to be within our wifi network. </p>
 
@@ -113,8 +108,6 @@
         <!--CODE-->
 
         <p> And all together, these buttons were able to write to the database and turn on and off an LED. </p>
-        
-        <img src="./servo.gif" class="img-responsive margin" style="width:50%" alt="Servo motor video">
 
         <h3> Step 2: Setting up a Capacitive Sensor with the Huzzah </h3>
        
